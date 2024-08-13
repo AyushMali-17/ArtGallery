@@ -60,7 +60,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
         }
 
         displayArtists();
-        displayArtworks();
+        displayArtworks(); 
     };
     reader.readAsDataURL(image);
 
@@ -73,7 +73,7 @@ document.getElementById('filterCategory').addEventListener('change', function(ev
     displayArtworks();
 });
 
-// Display Artworks with Pagination
+
 function displayArtworks() {
     const selectedCategory = document.getElementById('filterCategory').value;
     const artworkGrid = document.getElementById('artworkGrid');
@@ -94,7 +94,7 @@ function displayArtworks() {
     document.getElementById('nextPage').disabled = endIndex >= filteredArtworks.length;
 }
 
-// Pagination Controls
+
 document.getElementById('prevPage').addEventListener('click', function() {
     if (currentPage > 1) {
         currentPage--;

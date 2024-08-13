@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Art Gallery</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Welcome to the Online Art Gallery</h1>
-        <button id="darkModeToggle">Toggle Dark Mode</button>
+        <h1>Online Art Gallery</h1>
+        <button id="darkModeToggle" aria-label="Toggle Dark Mode"></button>
         <nav>
             <ul>
                 <li><a href="#register">Register</a></li>
@@ -21,75 +24,81 @@
         </nav>
     </header>
 
-    <section id="register">
-        <h2>Artist Registration</h2>
-        <form id="registerForm">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <button type="submit">Register</button>
-        </form>
-    </section>
+    <main>
+        <section id="register">
+            <h2>Artist Registration</h2>
+            <form id="registerForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <button type="submit">Register</button>
+            </form>
+        </section>
 
-    <section id="upload">
-        <h2>Upload Artwork</h2>
-        <form id="uploadForm">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
-            <label for="category">Category:</label>
-            <input type="text" id="category" name="category" required>
-            <label for="artist">Artist Name:</label>
-            <input type="text" id="artist" name="artist" required>
-            <label for="image">Upload Image:</label>
-            <input type="file" id="image" name="image" accept="image/*" required>
-            <button type="submit">Upload</button>
-        </form>
-    </section>
+        <section id="upload">
+            <h2>Upload Artwork</h2>
+            <form id="uploadForm">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                <label for="category">Category:</label>
+                <input type="text" id="category" name="category" required>
+                <label for="artist">Artist Name:</label>
+                <input type="text" id="artist" name="artist" required>
+                <label for="image">Upload Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <button type="submit">Upload</button>
+            </form>
+        </section>
 
-    <section id="gallery">
-        <h2>Gallery</h2>
-        <input type="text" id="searchBar" placeholder="Search artworks or artists...">
-        <div>
-            <label for="filterCategory">Filter by Category:</label>
-            <select id="filterCategory">
-                <option value="all">All</option>
-            </select>
-        </div>
-        <div id="artworkGrid">
-            <!-- Artworks will be dynamically added here -->
-        </div>
-        <div id="pagination">
-            <button id="prevPage">Previous</button>
-            <span id="currentPage">1</span>
-            <button id="nextPage">Next</button>
-        </div>
-    </section>
+        <section id="gallery">
+            <h2>Gallery</h2>
+            <input type="text" id="searchBar" placeholder="Search artworks or artists...">
+            <div>
+                <label for="filterCategory">Filter by Category:</label>
+                <select id="filterCategory">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div id="artworkGrid" class="grid">
+                <!-- Artworks will be dynamically added here -->
+            </div>
+            <div id="pagination">
+                <button id="prevPage">Previous</button>
+                <span id="currentPage">1</span>
+                <button id="nextPage">Next</button>
+            </div>
+        </section>
 
-    <section id="artists">
-        <h2>Artists</h2>
-        <div id="artistList">
-            <!-- List of artists will be dynamically added here -->
-        </div>
-    </section>
+        <section id="artists">
+            <h2>Artists</h2>
+            <div id="artistList" class="grid">
+                <!-- List of artists will be dynamically added here -->
+            </div>
+        </section>
 
-    <section id="tour">
-        <h2>Virtual Tour</h2>
-        <div id="tourContainer">
-            <iframe id="tourViewer" src="https://www.360cities.net/embed_iframe" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </section>
+        <section id="tour">
+            <h2>Virtual Tour</h2>
+            <div id="tourContainer">
+                <iframe id="tourViewer" src="https://www.360cities.net/embed_iframe" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+    </main>
 
     <!-- Modal for Artwork Details -->
-    <div id="artworkModal" class="modal">
+    <div id="artworkModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <button class="close" aria-label="Close">&times;</button>
             <img id="modalImage" src="" alt="Artwork">
             <h3 id="modalTitle">Title</h3>
             <p><strong>Artist:</strong> <span id="modalArtist">Artist Name</span></p>
             <p><strong>Category:</strong> <span id="modalCategory">Category</span></p>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2024 Online Art Gallery. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
