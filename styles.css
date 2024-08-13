@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -35,6 +36,7 @@ h2 {
     color: #333;
 }
 
+/* Forms */
 form {
     display: flex;
     flex-direction: column;
@@ -45,7 +47,7 @@ form label {
     margin-bottom: 0.5rem;
 }
 
-form input {
+form input, form select {
     margin-bottom: 1rem;
     padding: 0.5rem;
     border: 1px solid #ccc;
@@ -65,6 +67,7 @@ form button:hover {
     background-color: #555;
 }
 
+/* Gallery Grid */
 #artworkGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -76,4 +79,21 @@ form button:hover {
     height: auto;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+/* Virtual Tour */
+#tourContainer {
+    text-align: center;
+}
+
+#tourImage {
+    width: 80%;
+    height: auto;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#tourImage:hover {
+    border-color: #777;
 }
