@@ -58,3 +58,73 @@
     <script src="script.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Art Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Online Art Gallery</h1>
+        <nav>
+            <ul>
+                <li><a href="#register">Register</a></li>
+                <li><a href="#upload">Upload Artwork</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#tour">Virtual Tour</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="register">
+        <h2>Artist Registration</h2>
+        <form id="registerForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit">Register</button>
+        </form>
+    </section>
+
+    <section id="upload">
+        <h2>Upload Artwork</h2>
+        <form id="uploadForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" required>
+            <label for="artist">Artist Name:</label>
+            <input type="text" id="artist" name="artist" required>
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+            <button type="submit">Upload</button>
+        </form>
+    </section>
+
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div>
+            <label for="filterCategory">Filter by Category:</label>
+            <select id="filterCategory">
+                <option value="all">All</option>
+            </select>
+        </div>
+        <div id="artworkGrid">
+            <!-- Artworks will be dynamically added here -->
+        </div>
+    </section>
+
+    <section id="tour">
+        <h2>Virtual Tour</h2>
+        <div id="tourContainer">
+            <img src="https://via.placeholder.com/800x400" alt="Virtual Tour" id="tourImage">
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
