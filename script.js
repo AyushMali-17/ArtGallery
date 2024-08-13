@@ -1,6 +1,8 @@
 // Mock databases
 let artists = [];
 let artworks = [];
+let currentPage = 1;
+const itemsPerPage = 6; 
 
 // Register Artist
 document.getElementById('registerForm').addEventListener('submit', function(event) {
@@ -33,6 +35,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
         const imgElement = document.createElement('img');
         imgElement.src = e.target.result;
         imgElement.alt = title;
+        imgElement.loading = "lazy"; // Enable lazy loading
         imgElement.addEventListener('click', () => openModal(title, artistName, category, e.target.result));
 
         const artwork = {
@@ -47,9 +50,6 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
         const artist = artists.find(a => a.name === artistName);
         if (artist) artist.artworks += 1;
 
-        const artworkGrid = document.getElementById('artworkGrid');
-        artworkGrid.appendChild(imgElement);
-
         // Add category to filter dropdown if new
         const filterCategory = document.getElementById('filterCategory');
         if (![...filterCategory.options].some(option => option.value === category)) {
@@ -60,6 +60,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
         }
 
         displayArtists();
+        displayArtworks();
     };
     reader.readAsDataURL(image);
 
@@ -69,15 +70,41 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
 
 // Filter Artworks by Category
 document.getElementById('filterCategory').addEventListener('change', function(event) {
-    const selectedCategory = event.target.value;
+    displayArtworks();
+});
+
+// Display Artworks with Pagination
+function displayArtworks() {
+    const selectedCategory = document.getElementById('filterCategory').value;
     const artworkGrid = document.getElementById('artworkGrid');
     artworkGrid.innerHTML = ''; // Clear the grid
 
     const filteredArtworks = selectedCategory === 'all' ? artworks : artworks.filter(art => art.category === selectedCategory);
+    
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const artworksToDisplay = filteredArtworks.slice(startIndex, endIndex);
 
-    filteredArtworks.forEach(art => {
+    artworksToDisplay.forEach(art => {
         artworkGrid.appendChild(art.imgElement);
     });
+
+    document.getElementById('currentPage').textContent = currentPage;
+    document.getElementById('prevPage').disabled = currentPage === 1;
+    document.getElementById('nextPage').disabled = endIndex >= filteredArtworks.length;
+}
+
+// Pagination Controls
+document.getElementById('prevPage').addEventListener('click', function() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayArtworks();
+    }
+});
+
+document.getElementById('nextPage').addEventListener('click', function() {
+    currentPage++;
+    displayArtworks();
 });
 
 // Display Artists
@@ -113,6 +140,22 @@ function filterArtworksByArtist(artistName) {
     });
 }
 
+// Search Artworks and Artists
+document.getElementById('searchBar').addEventListener('input', function(event) {
+    const query = event.target.value.toLowerCase();
+    const artworkGrid = document.getElementById('artworkGrid');
+    artworkGrid.innerHTML = ''; // Clear the grid
+
+    const filteredArtworks = artworks.filter(art => 
+        art.title.toLowerCase().includes(query) || 
+        art.artist.toLowerCase().includes(query)
+    );
+
+    filteredArtworks.forEach(art => {
+        artworkGrid.appendChild(art.imgElement);
+    });
+});
+
 // Open Modal with Artwork Details
 function openModal(title, artist, category, imgSrc) {
     const modal = document.getElementById('artworkModal');
@@ -137,7 +180,11 @@ window.addEventListener('click', function(event) {
     }
 });
 
-// Basic Virtual Tour Interaction
-document.getElementById('tourImage').addEventListener('click', function() {
-    alert('Entering the virtual tour... (This is a placeholder for actual 360-degree interaction)');
+// Dark Mode Toggle
+document.getElementById('darkModeToggle').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
 });
+
+// Initial Display
+displayArtworks();
+displayArtists();

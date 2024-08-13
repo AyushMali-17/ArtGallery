@@ -9,6 +9,7 @@
 <body>
     <header>
         <h1>Welcome to the Online Art Gallery</h1>
+        <button id="darkModeToggle">Toggle Dark Mode</button>
         <nav>
             <ul>
                 <li><a href="#register">Register</a></li>
@@ -48,6 +49,7 @@
 
     <section id="gallery">
         <h2>Gallery</h2>
+        <input type="text" id="searchBar" placeholder="Search artworks or artists...">
         <div>
             <label for="filterCategory">Filter by Category:</label>
             <select id="filterCategory">
@@ -56,6 +58,11 @@
         </div>
         <div id="artworkGrid">
             <!-- Artworks will be dynamically added here -->
+        </div>
+        <div id="pagination">
+            <button id="prevPage">Previous</button>
+            <span id="currentPage">1</span>
+            <button id="nextPage">Next</button>
         </div>
     </section>
 
@@ -69,10 +76,7 @@
     <section id="tour">
         <h2>Virtual Tour</h2>
         <div id="tourContainer">
-            <img src="https://via.placeholder.com/800x400" alt="Virtual Tour" id="tourImage">
-            <div id="tourInfo">
-                <p>Click on the image to start the virtual tour.</p>
-            </div>
+            <iframe id="tourViewer" src="https://www.360cities.net/embed_iframe" frameborder="0" allowfullscreen></iframe>
         </div>
     </section>
 
