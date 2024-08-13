@@ -11,7 +11,9 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         email: document.getElementById('email').value
     };
     artists.push(artist);
-    
+
+    displayArtists();
+
     alert('Artist registered successfully!');
     this.reset();
 });
@@ -69,6 +71,39 @@ document.getElementById('filterCategory').addEventListener('change', function(ev
         artworkGrid.appendChild(art.imgElement);
     });
 });
+
+// Display Artists
+function displayArtists() {
+    const artistList = document.getElementById('artistList');
+    artistList.innerHTML = ''; // Clear the list
+
+    artists.forEach(artist => {
+        const artistDiv = document.createElement('div');
+        artistDiv.textContent = artist.name;
+
+        const artistLink = document.createElement('a');
+        artistLink.href = '#gallery';
+        artistLink.textContent = `View ${artist.name}'s Artworks`;
+        artistLink.addEventListener('click', function() {
+            filterArtworksByArtist(artist.name);
+        });
+
+        artistDiv.appendChild(artistLink);
+        artistList.appendChild(artistDiv);
+    });
+}
+
+// Filter Artworks by Artist
+function filterArtworksByArtist(artistName) {
+    const artworkGrid = document.getElementById('artworkGrid');
+    artworkGrid.innerHTML = ''; // Clear the grid
+
+    const filteredArtworks = artworks.filter(art => art.artist === artistName);
+
+    filteredArtworks.forEach(art => {
+        artworkGrid.appendChild(art.imgElement);
+    });
+}
 
 // Basic Virtual Tour Interaction
 document.getElementById('tourImage').addEventListener('click', function() {
