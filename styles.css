@@ -79,6 +79,7 @@ form button:hover {
     height: auto;
     border: 1px solid #ccc;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 #artistList div {
@@ -107,9 +108,11 @@ form button:hover {
     border: 2px solid #ccc;
     border-radius: 8px;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
 #tourImage:hover {
+    transform: scale(1.05);
     border-color: #777;
 }
 
@@ -122,4 +125,41 @@ form button:hover {
     color: white;
     padding: 1rem;
     border-radius: 8px;
+}
+
+/* Modal for Artwork Details */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
 }

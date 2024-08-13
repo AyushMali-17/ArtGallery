@@ -8,7 +8,8 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     
     const artist = {
         name: document.getElementById('name').value,
-        email: document.getElementById('email').value
+        email: document.getElementById('email').value,
+        artworks: 0
     };
     artists.push(artist);
 
@@ -24,7 +25,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
 
     const title = document.getElementById('title').value;
     const category = document.getElementById('category').value;
-    const artist = document.getElementById('artist').value;
+    const artistName = document.getElementById('artist').value;
     const image = document.getElementById('image').files[0];
 
     const reader = new FileReader();
@@ -32,14 +33,19 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
         const imgElement = document.createElement('img');
         imgElement.src = e.target.result;
         imgElement.alt = title;
+        imgElement.addEventListener('click', () => openModal(title, artistName, category, e.target.result));
 
         const artwork = {
             title,
             category,
-            artist,
+            artist: artistName,
             imgElement
         };
         artworks.push(artwork);
+
+        // Increase artwork count for the artist
+        const artist = artists.find(a => a.name === artistName);
+        if (artist) artist.artworks += 1;
 
         const artworkGrid = document.getElementById('artworkGrid');
         artworkGrid.appendChild(imgElement);
@@ -52,6 +58,8 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
             option.textContent = category;
             filterCategory.appendChild(option);
         }
+
+        displayArtists();
     };
     reader.readAsDataURL(image);
 
@@ -79,7 +87,7 @@ function displayArtists() {
 
     artists.forEach(artist => {
         const artistDiv = document.createElement('div');
-        artistDiv.textContent = artist.name;
+        artistDiv.textContent = `${artist.name} (${artist.artworks} artworks)`;
 
         const artistLink = document.createElement('a');
         artistLink.href = '#gallery';
@@ -104,6 +112,30 @@ function filterArtworksByArtist(artistName) {
         artworkGrid.appendChild(art.imgElement);
     });
 }
+
+// Open Modal with Artwork Details
+function openModal(title, artist, category, imgSrc) {
+    const modal = document.getElementById('artworkModal');
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalArtist').textContent = artist;
+    document.getElementById('modalCategory').textContent = category;
+    document.getElementById('modalImage').src = imgSrc;
+    modal.style.display = "block";
+}
+
+// Close Modal
+document.querySelector('.close').addEventListener('click', function() {
+    const modal = document.getElementById('artworkModal');
+    modal.style.display = "none";
+});
+
+// Close Modal when clicking outside of it
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('artworkModal');
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
 
 // Basic Virtual Tour Interaction
 document.getElementById('tourImage').addEventListener('click', function() {
